@@ -54,7 +54,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
 
 uint32 delaySyncTxTime;
 extern u16 rx2_len;
-//extern u16 lose_number;
+
 void TIM2_IRQHandler(void)
 {	IR_500ms+=1;
 	if(IR_500ms==2)
