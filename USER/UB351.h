@@ -2,7 +2,8 @@
 #define _UB351_H
 #include "sys.h"
 #include "stdio.h"	
-#define Station_Number 1
+#define Station_Number_H (512& 0xFF00)>>8
+#define Station_Number_L (u8)(512&0xFF)
 #define Station_Type 3
 #define Reser_Len 4  //±£Áô×Ö³¤¶È
 extern u8 IR_500ms;
