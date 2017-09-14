@@ -55,9 +55,9 @@ int main(void)
 	Stm32_Clock_Init(360,25,2,8);   //设置时钟,180Mhz   
 	HAL_Init();                     //初始化HAL库
 	delay_init(180);                //初始化延时函数
-	UART1_Init(921600);              //初始化USART	
+	UART3_Init(115200);              //初始化USART	
 	
-	UART2_Init(115200);              //初始化USART
+	UART2_Init(921600);              //初始化USART
 	DMA_Init();
 	LED_Init();
 	//TIM5_Init(0xffffffff, 90-1);		// 计数时钟1MHz
@@ -67,15 +67,15 @@ int main(void)
 	Init_OSQ();	
 
 	delay_ms(3000);	
-	UART2_send("$CFGMSG,0,0,0\r\n",15);
-	UART2_send("$CFGMSG,0,1,0\r\n",15);
-	UART2_send("$CFGMSG,0,2,0\r\n",15);
-	UART2_send("$CFGMSG,0,3,0\r\n",15);
-	UART2_send("$CFGMSG,0,4,0\r\n",15);
+	UART3_send("$CFGMSG,0,0,0\r\n",15);
+	UART3_send("$CFGMSG,0,1,0\r\n",15);
+	UART3_send("$CFGMSG,0,2,0\r\n",15);
+	UART3_send("$CFGMSG,0,3,0\r\n",15);
+	UART3_send("$CFGMSG,0,4,0\r\n",15);
 	
-	UART2_send("$CFGMSG,2,2,1\r\n",15);
-  UART2_send("$CFGMSG,2,3,0\r\n",15);	
-	
+	UART3_send("$CFGMSG,2,2,1\r\n",15);
+  UART3_send("$CFGMSG,2,3,0\r\n",15);	
+	UART3_send("$CFGSAVE,h0f\r\n",14);
 	
 	//UART2_send("$CFGMSG,2,2,1\r\n",15);
 /*  printf("+++"); //WIFI模块进入AT模式的命令
