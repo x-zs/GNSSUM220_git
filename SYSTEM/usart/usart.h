@@ -25,7 +25,7 @@ extern UART_HandleTypeDef UART3_Handler;
 void UART1_Init(u32 bound);
 void UART2_Init(u32 bound);
 void UART3_Init(u32 bound);
-void UART3_send(u8 *p,u16 lenth);
+void UART2_send(u8 *p,u16 lenth);
 /* USER CODE BEGIN Private defines */  
 #define RECEIVELEN 800
 #endif

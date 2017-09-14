@@ -29,7 +29,7 @@ extern DMA_HandleTypeDef  SPI1TxDMA_Handler;				//SPI1发送通道DMA句柄，DMA1/Str4
 extern DMA_HandleTypeDef  SPI1RxDMA_Handler;				//SPI1接收通道DMA句柄，DMA1/Str3/Chan0
 
 //extern uint8_t UART1_rxBuf2[RECEIVELEN];
-extern uint8_t UART3_rxBuf[RECEIVELEN];
+extern uint8_t UART2_rxBuf[RECEIVELEN];
 extern uint8_t SPI_RX_FLAG;
 extern uint8_t SPI_TX_FLAG;
 

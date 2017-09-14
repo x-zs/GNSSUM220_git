@@ -27,17 +27,17 @@ void _sys_exit(int x)
 //重定义fputc函数 
 int fputc(int ch, FILE *f)
 { 	
-	while((USART2->SR&0X40)==0);//循环发送,直到发送完毕   
-	USART2->DR = (u8) ch;      
+	while((USART1->SR&0X40)==0);//循环发送,直到发送完毕   
+	USART1->DR = (u8) ch;      
 	return ch;
 }
 #endif 
-void UART3_send(u8 *p,u16 lenth)
+void UART2_send(u8 *p,u16 lenth)
 {u16 i=0;
 for(;i<lenth;i++)
 	{	
-		while((USART3->SR&0X40)==0);//循环发送,直到发送完毕    
-	USART3->DR = *(p+i);
+		while((USART2->SR&0X40)==0);//循环发送,直到发送完毕    
+	USART2->DR = *(p+i);
 	}   
 }
 UART_HandleTypeDef UART1_Handler; //UART句柄
@@ -181,37 +181,37 @@ void UsartReceive_IDLE(UART_HandleTypeDef *huart)
 		}
 	}
 	
-	if (huart->Instance == USART3)
+	if (huart->Instance == USART2)
 	{
 		
 		if((__HAL_UART_GET_FLAG(huart,UART_FLAG_IDLE) != RESET))
 		{
-			__HAL_UART_CLEAR_IDLEFLAG(&UART3_Handler);
-			UART3_Handler.Instance->CR3 &= ~USART_CR3_DMAR;
-			HAL_DMA_Abort(UART3_Handler.hdmarx);
-			UART3_Handler.State = HAL_UART_STATE_READY;
-			temp = UART3_Handler.hdmarx->Instance->NDTR;
+			__HAL_UART_CLEAR_IDLEFLAG(&UART2_Handler);
+			UART2_Handler.Instance->CR3 &= ~USART_CR3_DMAR;
+			HAL_DMA_Abort(UART2_Handler.hdmarx);
+			UART2_Handler.State = HAL_UART_STATE_READY;
+			temp = UART2_Handler.hdmarx->Instance->NDTR;
 			rx_len =  RECEIVELEN - temp;
 			rx_len1=rx_len1+rx_len;	
-		 if(UART3_rxBuf[0]==0xd3&&(UART3_rxBuf[3]==0x43||UART3_rxBuf[3]==0x46))
+		 if(UART2_rxBuf[0]==0xd3&&(UART2_rxBuf[3]==0x43||UART2_rxBuf[3]==0x46))
 			{	//rx_len=rx_len1+rx_len;	
-				if(UART3_rxBuf[rx_len1-2]==0x0d&&UART3_rxBuf[rx_len1-1]==0x0a)
+				if(UART2_rxBuf[rx_len1-2]==0x0d&&UART2_rxBuf[rx_len1-1]==0x0a)
 				{
 	
-					OSQPost(&OSQ_UART1RxMsgQ, &UART3_rxBuf[0], rx_len1-2, OS_OPT_POST_FIFO, &err);								
-					HAL_UART_Receive_DMA(&UART3_Handler,&UART3_rxBuf[0],RECEIVELEN);					//重新启动接收
+					OSQPost(&OSQ_UART1RxMsgQ, &UART2_rxBuf[0], rx_len1-2, OS_OPT_POST_FIFO, &err);								
+					HAL_UART_Receive_DMA(&UART2_Handler,&UART2_rxBuf[0],RECEIVELEN);					//重新启动接收
 					rx_len1=0;
 				}
 				else
 				{
-		  	HAL_UART_Receive_DMA(&UART3_Handler,&UART3_rxBuf[rx_len1],RECEIVELEN);					
+		  	HAL_UART_Receive_DMA(&UART2_Handler,&UART2_rxBuf[rx_len1],RECEIVELEN);					
 				}
 				
 			}
 			else 
 			{ rx_len1=0;
-			 UART3_rxBuf[rx_len]=0;
-			 HAL_UART_Receive_DMA(&UART3_Handler,&UART3_rxBuf[0],RECEIVELEN);
+			 UART2_rxBuf[rx_len]=0;
+			 HAL_UART_Receive_DMA(&UART2_Handler,&UART2_rxBuf[0],RECEIVELEN);
 			}
 		}
 	}

@@ -59,7 +59,7 @@ void TIM2_IRQHandler(void)
 {	IR_500ms+=1;
 	if(IR_500ms==2)
 	{
-	 UB351_Transmit(UART3_rxBuf,rx2_len,1);
+	 UB351_Transmit(UART2_rxBuf,rx2_len,1);
 	 rx2_len=0;
 	 IR_500ms=0;
 	}
